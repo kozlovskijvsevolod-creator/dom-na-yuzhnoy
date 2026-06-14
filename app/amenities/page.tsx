@@ -25,7 +25,7 @@ export default function Experience() {
     <section className="editorial service-section">
       <Chapter index="01" label="Что доступно гостям" />
       <Reveal><h2>Нужное для комфорта.<br /><em>Пространство для впечатлений.</em></h2></Reveal>
-      <div className="service-grid">{services.map(([Icon, title, text], i) => <Reveal key={title as string} delay={i * .07}><Icon /><span>0{i + 1}</span><h3>{title as string}</h3><p>{text as string}</p></Reveal>)}</div>
+      <div className="service-grid">{services.map(([Icon, title, text], i) => <Reveal className={`service-card-${i + 1}`} key={title as string} delay={i * .07}><Icon /><span>0{i + 1}</span><h3>{title as string}</h3><p>{text as string}</p></Reveal>)}</div>
     </section>
 
     <section className="day-story">

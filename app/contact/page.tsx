@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { FormEvent, useState } from "react";
+import { SocialLinks } from "@/components/SocialLinks";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -15,11 +16,10 @@ export default function Contact() {
       <section className="contact-intro">
         <span>Частные обращения / 07</span>
         <h1>Тихий ответ<br />на <em>личный запрос.</em></h1>
-        <p>Для уточнения свободных дат и стоимости свяжитесь с владельцами Дома на Южной по телефону или через официальный профиль в Инстаграм.</p>
+        <p>Для уточнения свободных дат и стоимости свяжитесь с владельцами Дома на Южной по телефону, через Инстаграм или ТикТок.</p>
         <div>
           <a href="tel:+375296479387">+375 29 647-93-87 <ArrowUpRight /></a>
-          <a href="tel:+375296442910">+375 29 644-29-10 <ArrowUpRight /></a>
-          <a href="https://www.instagram.com/dom_na_yuzhnoy/" target="_blank" rel="noreferrer">Написать в Инстаграм <ArrowUpRight /></a>
+          <SocialLinks className="contact-socials" />
         </div>
       </section>
       <section className="contact-form">
@@ -27,7 +27,7 @@ export default function Contact() {
           <div className="form-success">
             <span>✓</span>
             <h2>Готово.</h2>
-            <p>Форма заполнена. Для отправки запроса владельцам свяжитесь с ними по телефону или через Инстаграм.</p>
+            <p>Форма заполнена. Для отправки запроса владельцам свяжитесь с ними по телефону или через официальные социальные сети.</p>
             <button onClick={() => setSent(false)}>Отправить ещё одно сообщение</button>
           </div>
         ) : (

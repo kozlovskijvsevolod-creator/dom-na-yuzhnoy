@@ -142,7 +142,7 @@ export function BookingClient() {
 
       <section className="booking-intro-strip">
         <div><CalendarDays /><span>Даты</span><p>Укажите желаемые дни заезда и выезда.</p></div>
-        <div><Users /><span>Компания</span><p>Дом рассчитан максимум на 10 гостей.</p></div>
+        <div><Users /><span>Компания</span><p>В доме предусмотрено 10 спальных мест.</p></div>
         <div><Clock3 /><span>Ответ</span><p>Заявка поступит владельцам через Telegram.</p></div>
         <Link href="/prices">Посмотреть все цены</Link>
       </section>
@@ -200,7 +200,7 @@ export function BookingClient() {
 
           <div className="booking-field">
             <label htmlFor="booking-occasion">Повод поездки</label>
-            <div><select id="booking-occasion" name="occasion" defaultValue="Отдых с близкими"><option>Отдых с близкими</option><option>Семейная поездка</option><option>Торжество</option><option>Банкет</option><option>Деловая встреча</option><option>Другое</option></select></div>
+            <div><select id="booking-occasion" name="occasion" defaultValue="Отдых с близкими"><option>Отдых с близкими</option><option>Семейная поездка</option><option>День рождения</option><option>Свадьба</option><option>Торжество</option><option>Банкет</option><option>Деловая встреча</option><option>Другое</option></select></div>
           </div>
 
           <fieldset className="booking-services">

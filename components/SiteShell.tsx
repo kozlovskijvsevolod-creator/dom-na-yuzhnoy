@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/Logo";
+import { SocialLinks } from "@/components/SocialLinks";
 
 const links = [
   ["Дом", "/about"],
@@ -61,7 +62,12 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         )}
       </AnimatePresence>
 
-      <Cursor />
+      <div className="contact-bar">
+        <div className="contact-bar-inner">
+          <a href="tel:+375296479387"><Phone /> <span>+375 29 647-93-87</span></a>
+          <SocialLinks className="header-socials" />
+        </div>
+      </div>
       <header className="nav-shell">
         <Link href="/" className="brand" aria-label="Дом на Южной — главная">
           <Logo variant="light" className="nav-logo" priority />
@@ -97,32 +103,13 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Cursor() {
-  const [hover, setHover] = useState(false);
-  const pointerX = useMotionValue(-100);
-  const pointerY = useMotionValue(-100);
-  const x = useSpring(pointerX, { damping: 35, stiffness: 500 });
-  const y = useSpring(pointerY, { damping: 35, stiffness: 500 });
-  useEffect(() => {
-    const move = (e: MouseEvent) => {
-      pointerX.set(e.clientX - 8);
-      pointerY.set(e.clientY - 8);
-    };
-    const over = (e: MouseEvent) => setHover(!!(e.target as HTMLElement).closest("a,button,[data-cursor]"));
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mouseover", over);
-    return () => { window.removeEventListener("mousemove", move); window.removeEventListener("mouseover", over); };
-  }, [pointerX, pointerY]);
-  return <motion.div className={`cursor ${hover ? "is-hover" : ""}`} style={{ x, y }} />;
-}
-
 function Footer() {
   return (
     <footer>
       <div className="footer-top">
         <div><Logo variant="light" className="footer-logo" /><p>Тёплый дом для отдыха<br />с близкими людьми.</p></div>
         <div><small>Разделы</small>{links.map(([l, h]) => <Link key={h} href={h}>{l}</Link>)}</div>
-        <div><small>Бронирование</small><a href="tel:+375296479387">+375 29 647-93-87</a><a href="tel:+375296442910">+375 29 644-29-10</a><a href="https://www.instagram.com/dom_na_yuzhnoy/" target="_blank" rel="noreferrer">Инстаграм ↗</a><a href="https://www.tiktok.com/@dom_na_yuzhnoy" target="_blank" rel="noreferrer">ТикТок ↗</a></div>
+        <div><small>Бронирование</small><a href="tel:+375296479387">+375 29 647-93-87</a><SocialLinks className="footer-socials" /></div>
       </div>
       <div className="footer-bottom"><span>© 2026 Дом на Южной</span><span>Борисов · Южная улица, 12А</span><span>Круглосуточно · По предварительной брони</span></div>
     </footer>

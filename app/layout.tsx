@@ -52,7 +52,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       addressRegion: "Минская область",
       addressCountry: "BY"
     },
-    telephone: ["+375296479387", "+375296442910"]
+    telephone: "+375296479387"
   };
 
   return (
