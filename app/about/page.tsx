@@ -10,7 +10,7 @@ const materials = [
 ];
 
 export default function About() {
-  return <>
+  return <div className="about-page">
     <PageHero eyebrow="О доме / 01" title="Два этажа для отдыха без тесноты." text="Светлые комнаты, четыре спальни и всё необходимое для комфортного проживания до 10 гостей." image="/images/DEXe4w0oUmD-3.jpg" />
     <section className="editorial story">
       <Chapter index="01" label="Пространство дома" />
@@ -44,5 +44,5 @@ export default function About() {
       <div className="material-grid">{materials.map(([name, src], i) => <Reveal key={name} delay={(i % 3) * .06}><div className="material-image"><Image src={`/images/${src}`} fill alt={name} sizes="33vw" /></div><span>0{i + 1}</span><h3>{name}</h3></Reveal>)}</div>
     </section>
     <BookingBand />
-  </>;
+  </div>;
 }

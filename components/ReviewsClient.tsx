@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ExternalLink, Maximize2, Quote, Star, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { ExternalLink, Quote, Star } from "lucide-react";
+import { useMemo, useState } from "react";
 
 export type Review = {
   author: string;
@@ -11,8 +10,6 @@ export type Review = {
   rating: number;
   text: string;
   accent: string;
-  image?: string;
-  imageAlt?: string;
 };
 
 export type ReviewsData = {
@@ -28,7 +25,6 @@ const ratingFilters = ["Все", "5", "4", "3", "2", "1"];
 
 export function ReviewsClient({ data }: { data: ReviewsData }) {
   const [filter, setFilter] = useState("Все");
-  const [activeReview, setActiveReview] = useState<Review | null>(null);
   const reviews = useMemo(
     () => [...data.items].sort((first, second) => second.rating - first.rating),
     [data.items]
@@ -37,20 +33,6 @@ export function ReviewsClient({ data }: { data: ReviewsData }) {
     () => filter === "Все" ? reviews : reviews.filter((review) => review.rating === Number(filter)),
     [filter, reviews]
   );
-
-  useEffect(() => {
-    if (!activeReview) return;
-    const previousOverflow = document.body.style.overflow;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setActiveReview(null);
-    };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", closeOnEscape);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [activeReview]);
 
   return (
     <>
@@ -66,7 +48,7 @@ export function ReviewsClient({ data }: { data: ReviewsData }) {
         <div className="reviews-trust-copy">
           <span>Проверенный источник</span>
           <h2>Впечатления людей,<br /><em>которые уже были в доме.</em></h2>
-          <p>В подборке собраны отзывы с Яндекс Карт и оригинальные скриншоты, предоставленные владельцем. Для новых отзывов можно открыть исходное изображение.</p>
+          <p>В подборке собраны отзывы гостей с Яндекс Карт и сообщения, предоставленные владельцем дома.</p>
           <a href={data.source.url} target="_blank" rel="noreferrer">
             Открыть отзывы на Яндекс Картах <ExternalLink />
           </a>
@@ -98,24 +80,6 @@ export function ReviewsClient({ data }: { data: ReviewsData }) {
                 key={`${review.author}-${review.date}`}
               >
                 <Quote />
-                {review.image && (
-                  <button
-                    type="button"
-                    className="review-original"
-                    onClick={() => setActiveReview(review)}
-                    aria-label={`Открыть оригинал отзыва: ${review.accent}`}
-                  >
-                    <Image
-                      src={review.image}
-                      fill
-                      alt={review.imageAlt ?? `Оригинал отзыва от ${review.author}`}
-                      quality={90}
-                      loading="lazy"
-                      sizes="(max-width: 800px) 92vw, 45vw"
-                    />
-                    <span><Maximize2 /> Открыть оригинал</span>
-                  </button>
-                )}
                 <div className="review-card-stars">
                   {review.rating > 0
                     ? Array.from({ length: review.rating }, (_, star) => <Star key={star} fill="currentColor" />)
@@ -133,33 +97,11 @@ export function ReviewsClient({ data }: { data: ReviewsData }) {
           <motion.div className="review-empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Star />
             <h3>Отзывов с такой оценкой пока нет</h3>
-            <p>Все опубликованные гости поставили Дому на Южной 5 из 5.</p>
+            <p>Выберите другую оценку или вернитесь ко всем отзывам.</p>
             <button type="button" onClick={() => setFilter("Все")}>Показать все отзывы</button>
           </motion.div>
         )}
       </section>
-
-      <AnimatePresence>
-        {activeReview?.image && (
-          <motion.div
-            className="review-image-modal"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            role="dialog"
-            aria-modal="true"
-            aria-label={`Оригинал отзыва от ${activeReview.author}`}
-            onMouseDown={(event) => {
-              if (event.target === event.currentTarget) setActiveReview(null);
-            }}
-          >
-            <motion.div initial={{ opacity: 0, scale: .95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .98 }}>
-              <button type="button" onClick={() => setActiveReview(null)} aria-label="Закрыть оригинал отзыва"><X /></button>
-              <Image src={activeReview.image} fill alt={activeReview.imageAlt ?? `Оригинал отзыва от ${activeReview.author}`} quality={100} sizes="95vw" />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }
