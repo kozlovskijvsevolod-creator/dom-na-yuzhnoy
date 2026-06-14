@@ -182,3 +182,44 @@ body{font-size:15px;line-height:1.65}
   .contact-socials{flex-wrap:wrap}
   .contact-intro .contact-socials a{flex:1 1 140px}
 }
+
+/* Свободный интерлиньяж для крупных serif-заголовков */
+.statement-title,
+.page-hero-copy h1,
+.intro-title h2,
+.story h2,
+.amenities>div>h2,
+.gallery-heading h2,
+.feature-card h2,
+.booking-band h2,
+.room-copy h3,
+.split-feature h2,
+.map-copy h2,
+.nearby>h2,
+.booking-summary h1,
+.confirmation h2,
+.contact-intro h1,
+.form-success h2,
+.floor-copy h2,
+.service-section h2,
+.day-intro h2,
+.privacy-section h2,
+.video-tour h2,
+.tour-cta h2,
+.request-hero h1,
+.rates-title h2,
+.form-heading h2,
+.next-steps h2,
+.location-mood h2,
+.dark-map-copy h2,
+.materials h2,
+.booking-confirmation h2,
+.price-intro h2,
+.extras-heading h2,
+.price-source-heading h2,
+.price-offers-title h2,
+.price-availability-copy h2,
+.reviews-trust-copy h2,
+.reviews-list-heading h2{
+  line-height:1.1!important;
+}
